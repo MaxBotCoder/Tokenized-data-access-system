@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.0;
 
 contract Erc721Retrofit { //Adds functionality to erc721
@@ -25,9 +25,9 @@ contract AccessToken { //Similar to erc20 except used for access varification
 
     //Personal ownership info.
     struct OwnerInfo {
-        bool isOwner;
-        uint quantityAccumilated;
-        uint timeAccumilated;
+        bool isBuyer;
+        uint TokensBought;
+        uint timeTillAccessExpires; //Time untiil data access will expire.
     }
 
     //General token related info.
@@ -95,6 +95,11 @@ contract AccessToken { //Similar to erc20 except used for access varification
             tokensSold++;
             TokensPurchasedByUser[userMessager]++;
             tokenOwnership[userMessager] = OwnerInfo(true, TokensPurchasedByUser[userMessager]++, TierToTime[_Tier] + block.timestamp);
+        } else if (DisposableAllowance == tokenTierToPrice[_Tier] && tokenOwnership[userMessager].isBuyer == true) {
+            tokensSold++;
+            TokensPurchasedByUser[userMessager]++;
+            tokenOwnership[userMessager].TokensBought = TokensPurchasedByUser[userMessager]++;
+            tokenOwnership[userMessager].timeTillAccessExpires += TierToTime[_Tier];
         }
         
         InteractionNumber++;
