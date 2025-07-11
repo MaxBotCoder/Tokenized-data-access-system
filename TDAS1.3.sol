@@ -87,18 +87,18 @@ contract AccessToken { //Similar to erc20 except used for access varification
     }
 
     function mintTokenForOwner (uint _Tier) public CanBuy(_Tier) {
-        tokenOwnership[userMessager] = OwnerInfo(true, TokensPurchasedByUser[userMessager]++, 0);
+        require(_Tier == 1 || _Tier == 2 || _Tier == 3, "Invalid options.");
         uint DisposableAllowance = Allowance[userMessager];
         Allowance[userMessager] = 0;
 
-        if(DisposableAllowance == tokenTierToPrice[_Tier]) {
+        if(DisposableAllowance == tokenTierToPrice[_Tier] && tokenOwnership[userMessager].isBuyer == false) {
             tokensSold++;
             TokensPurchasedByUser[userMessager]++;
-            tokenOwnership[userMessager] = OwnerInfo(true, TokensPurchasedByUser[userMessager]++, TierToTime[_Tier] + block.timestamp);
+            tokenOwnership[userMessager] = OwnerInfo(true, TokensPurchasedByUser[userMessager], TierToTime[_Tier] + block.timestamp);
         } else if (DisposableAllowance == tokenTierToPrice[_Tier] && tokenOwnership[userMessager].isBuyer == true) {
             tokensSold++;
             TokensPurchasedByUser[userMessager]++;
-            tokenOwnership[userMessager].TokensBought = TokensPurchasedByUser[userMessager]++;
+            tokenOwnership[userMessager].TokensBought = TokensPurchasedByUser[userMessager];
             tokenOwnership[userMessager].timeTillAccessExpires += TierToTime[_Tier];
         }
         
