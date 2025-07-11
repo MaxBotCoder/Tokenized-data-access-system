@@ -37,6 +37,7 @@ contract AccessToken { //Similar to erc20 except used for access varification
 
     //Token tier related features.
     mapping(uint => uint) public tokenTierToPrice;
+    mapping(uint => uint) public TierToTime; //Must be configured before deployment.
     mapping(address => OwnerInfo) public tokenOwnership; //Address represents owner in question, first uint represents token tier, second uint represents quantity, bool represents if user is owner.
 
     //Modifiers.
@@ -64,6 +65,12 @@ contract AccessToken { //Similar to erc20 except used for access varification
         tokenEditor( 1, _Tier1Price);
         tokenEditor( 2, _Tier2Price);
         tokenEditor( 3, _Tier3Price);
+
+        //Must be configured before deployment.
+        TierToTime[ 1] = 32 days; //1 month
+        TierToTime[ 2] = 196 days; //6 months
+        TierToTime[ 3] = 365 days; //1 year
+
         contractOfOrigin = msg.sender;
     }
 
@@ -87,7 +94,7 @@ contract AccessToken { //Similar to erc20 except used for access varification
         if(DisposableAllowance == tokenTierToPrice[_Tier]) {
             tokensSold++;
             TokensPurchasedByUser[userMessager]++;
-            tokenOwnership[userMessager] = OwnerInfo(true, TokensPurchasedByUser[userMessager]++, 0);
+            tokenOwnership[userMessager] = OwnerInfo(true, TokensPurchasedByUser[userMessager]++, TierToTime[_Tier] + block.timestamp);
         }
         
         InteractionNumber++;
