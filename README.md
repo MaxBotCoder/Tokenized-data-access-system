@@ -6,10 +6,14 @@ TDAS allows people to buy access to data on the blockchain
 Requirements to deploy contract (Instructions are made for linux only!):
 
 Step 1 (Download NodeJS via NVM & setup shortcut commands) 
+
 Firstly, go to NVM's github page here --> https://github.com/nvm-sh/nvm?tab=readme-ov-file#manual-install
+
 Secondly, set up command shortcuts to activate nvm and all software related to it on demand via opening the terminal then typing in sudo nano .bashrc
+
 Thirdly, once you are within the .bashrc file go to the verry bottom and type in alias startnvm='export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh"' it should look something like this.
 <img width="779" height="105" alt="Screenshot from 2025-07-17 09-20-11" src="https://github.com/user-attachments/assets/9ccc7743-a27f-4f43-9a10-fc9038309960" />
+
 Fourthy, press ctrl + x proceed to type in y then press enter.
 
 
