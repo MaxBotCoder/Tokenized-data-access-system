@@ -23,7 +23,8 @@ Firstly, go to https://code.visualstudio.com/Download <--- Download vs code from
 Secondly, go to files on linux this would either be tittled, Files or Dolphin.
 
 Thirdly, once in files navigate to downloads directory right click on .deb or .rpm and use ubuntu app store, gdebi, gnome store or which ever method your distro has to download vscode.
-[Screencast from 2025-07-17 10:08:02 AM.webm](https://github.com/user-attachments/assets/71f24e40-7d4c-4167-ba8a-b12ec5221832)
+
+https://github.com/user-attachments/assets/77132469-d119-43a8-8cbf-2f424ab04e6e
 
 <July 16th 2025>
 Update 0.1.4: Updated GPL licensing, requires interface contract in order to mint/purchase tokens, changes when sender contract is registered.
