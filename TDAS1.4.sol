@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: GPL-3.0
+//SPDX-License-Identifier: GPL-3.0+
 pragma solidity 0.8.0;
 
 contract Erc721Retrofit { //Adds functionality to erc721
@@ -46,13 +46,18 @@ contract AccessToken { //Similar to erc20 except used for access varification
         _;
     }
 
+    modifier requireExternalContract() {
+        require(msg.sender == contractOfOrigin, "Invalid permissions.");
+        _;
+    }
+
     modifier CanBuy (uint _Tier) { //Determines if someone is capable of buying a token.
         require(Allowance[userMessager] == tokenTierToPrice[_Tier], "Not enough funds to complete transaction.");
         _;
     }
 
     //functions pre-constructor.
-    function tokenEditor(uint _Tier, uint _UintPrice) payable public requireAdmin() {
+    function tokenEditor(uint _Tier, uint _UintPrice) payable public requireAdmin() requireExternalContract() {
         tokenTierToPrice[_Tier] = _UintPrice;
     }
 
@@ -60,6 +65,8 @@ contract AccessToken { //Similar to erc20 except used for access varification
     constructor (string memory _TokenName, string memory _TokenSymbol, uint _Tier1Price, uint _Tier2Price, uint _Tier3Price, address _UserAdmin) { 
         tokenName = _TokenName;
         tokenSymbol = _TokenSymbol;
+        contractOfOrigin = msg.sender;
+
         AdminPrivaledges[msg.sender] = true;
         AdminPrivaledges[_UserAdmin] = true;
         tokenEditor( 1, _Tier1Price);
@@ -71,10 +78,9 @@ contract AccessToken { //Similar to erc20 except used for access varification
         TierToTime[ 2] = 196 days; //6 months
         TierToTime[ 3] = 365 days; //1 year
 
-        contractOfOrigin = msg.sender;
     }
 
-    function trueMessager (address _UserMessager) public { //Makes sure tokens are allocated to user or user contract not control pannel contract.
+    function trueMessager (address _UserMessager) public requireExternalContract() { //Makes sure tokens are allocated to user or user contract not control pannel contract.
         require(msg.sender == contractOfOrigin, "Cannot alter outside of buyer interface contract.");
         userMessager = payable(address(_UserMessager));
     }
@@ -86,7 +92,7 @@ contract AccessToken { //Similar to erc20 except used for access varification
         }
     }
 
-    function mintTokenForOwner (uint _Tier) public CanBuy(_Tier) {
+    function mintTokenForOwner (uint _Tier) public CanBuy(_Tier) requireExternalContract() {
         require(_Tier == 1 || _Tier == 2 || _Tier == 3, "Invalid options.");
         uint DisposableAllowance = Allowance[userMessager];
         Allowance[userMessager] = 0;
