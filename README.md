@@ -26,5 +26,7 @@ Thirdly, once in files navigate to downloads directory right click on .deb or .r
 
 https://github.com/user-attachments/assets/77132469-d119-43a8-8cbf-2f424ab04e6e
 
+Step 3 ()
+
 <July 16th 2025>
 Update 0.1.4: Updated GPL licensing, requires interface contract in order to mint/purchase tokens, changes when sender contract is registered.
