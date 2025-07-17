@@ -5,9 +5,9 @@ TDAS allows people to buy access to data on the blockchain
 
 Requirements to deploy contract (Instructions are made for linux only!):
 
-Step 1 (Download NodeJS via NVM & setup shortcut commands) 
+Step 1 (Download NodeJS via NVM & setup shortcut commands)
 
-Firstly, go to NVM's github page here --> https://github.com/nvm-sh/nvm?tab=readme-ov-file#manual-install
+Firstly, go to NVM's github page here --> https://github.com/nvm-sh/nvm?tab=readme-ov-file#manual-install <--- use their instructions for installations use mine for setup after install!
 
 Secondly, set up command shortcuts to activate nvm and all software related to it on demand via opening the terminal then typing in sudo nano .bashrc
 
@@ -16,6 +16,7 @@ Thirdly, once you are within the .bashrc file go to the verry bottom and type in
 
 Fourthy, press ctrl + x proceed to type in y then press enter.
 
+Step 2
 
 <July 16th 2025>
 Update 0.1.4: Updated GPL licensing, requires interface contract in order to mint/purchase tokens, changes when sender contract is registered.
